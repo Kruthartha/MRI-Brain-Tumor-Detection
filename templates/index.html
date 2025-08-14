@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Tumor Classification</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            margin-top: 50px;
+        }
+        #testImage {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: {% if image_url %}'block'{% else %}'none'{% endif %};
+        }
+        .loading {
+            display: none;
+            font-size: 20px;
+            color: #007bff;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Brain Tumor Prediction</h1>
+        
+        <!-- File Upload Form -->
+        <form id="uploadForm" action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="fileInput" required>
+            <button type="submit" class="btn">Upload & Predict</button>
+        </form>
+
+        <!-- Loading Indicator -->
+        <p class="loading" id="loadingText">Processing...</p>
+
+        {% if tumor_type %}
+        <div class="container">
+            <h2>Prediction Result</h2>
+            <img id="testImage" src="{{ image_url }}" alt="Uploaded Image">
+            <p><b>Predicted Tumor Type:</b> {{ tumor_type }}</p>
+            <p><b>Suggested Medication:</b> {{ medication }}</p>
+    
+            {% if severity %}
+                <p><b>Severity Level:</b> {{ severity }}</p>
+            {% endif %}
+            
+            <p><b>Model Accuracy:</b> {{ accuracy }}%</p>
+        </div>
+    {% endif %}
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function() {
+            document.getElementById('loadingText').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+    "glioma": "Temozolomide, Bevacizumab, Radiation therapy",
+    "meningioma": "Surgery, Radiation therapy, Hydroxyurea",
+    "no tumor": "No treatment needed. Maintain a healthy lifestyle.",
+    "pituitary": "Bromocriptine, Cabergoline, Radiation therapy"
+}
